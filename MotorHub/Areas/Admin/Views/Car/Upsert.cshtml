@@ -1,0 +1,68 @@
+﻿@model MotorHub_Models.Car
+
+@{
+    var isEdit = Model.Carid != 0;
+    ViewData["Title"] = isEdit ? "Edit Car" : "Create Car";
+}
+
+<form method="post" enctype="multipart/form-data" asp-action="Upsert">
+    <input asp-for="Carid" hidden />
+    <input asp-for="CarImage" hidden />
+
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">@(isEdit ? "Edit Car" : "Create Car")</h2>
+            <hr />
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="CarName" class="p-0"></label>
+            <input asp-for="CarName" class="form-control" />
+            <span asp-validation-for="CarName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="CarMadein" class="p-0"></label>
+            <input asp-for="CarMadein" class="form-control" />
+            <span asp-validation-for="CarMadein" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="ImageFile" class="p-0">Car Image</label>
+            <input type="file" asp-for="ImageFile" name="file" class="form-control" accept="image/*" />
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.CarImage))
+        {
+            <div class="mb-3">
+                <img src="@Model.CarImage" style="width: 150px; height: 150px; object-fit: cover;"
+                     class="rounded border" />
+            </div>
+        }
+
+        <div class="mb-3 row p-1">
+            <label asp-for="CarPrice" class="p-0"></label>
+            <input asp-for="CarPrice" class="form-control" />
+            <span asp-validation-for="CarPrice" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="CarType" class="p-0"></label>
+            <input asp-for="CarType" class="form-control" />
+            <span asp-validation-for="CarType" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-primary form-control">
+                    @(isEdit ? "Update" : "Create")
+                </button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Car" asp-action="Index" class="btn btn-secondary border form-control">
+                    Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+</form>

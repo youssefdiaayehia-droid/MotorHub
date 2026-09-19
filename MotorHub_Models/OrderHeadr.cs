@@ -1,0 +1,34 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MotorHub_Models
+{
+    public class OrderHeader
+    {
+        public int Id { get; set; }
+
+        public string ApplicationUserId { get; set; }
+
+        [ForeignKey("ApplicationUserId")]
+        public ApplicationUser ApplicationUser { get; set; }
+
+        public DateTime OrderDate { get; set; }
+        public DateTime ShippingDate { get; set; }
+
+        public decimal OrderTotal { get; set; }
+
+        public string? OrderStatus { get; set; }
+        public string? PaymentStatus { get; set; }
+
+        public string? TrackingNumber { get; set; }
+        public string? Carrier { get; set; }
+
+        // بيانات الشحن
+        public string? Name { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? StreetAddress { get; set; }
+        public string? City { get; set; }
+        public string? State { get; set; }
+        public string? PostalCode { get; set; }
+    }
+}

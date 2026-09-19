@@ -1,0 +1,131 @@
+﻿@model MotorHub_Models.VM.OrderVM
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<form method="post" asp-action="UpdateOrderStatus">
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <input asp-for="OrderHeader.Id" hidden />
+
+    <div class="container">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-primary">Order Details - #@Model.OrderHeader.Id</h2>
+            </div>
+        </div>
+        <hr />
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Shipping Details</h4>
+                <hr />
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.Name" class="form-label"></label>
+                    <input asp-for="OrderHeader.Name" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.PhoneNumber" class="form-label"></label>
+                    <input asp-for="OrderHeader.PhoneNumber" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.StreetAddress" class="form-label"></label>
+                    <input asp-for="OrderHeader.StreetAddress" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.City" class="form-label"></label>
+                    <input asp-for="OrderHeader.City" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.State" class="form-label"></label>
+                    <input asp-for="OrderHeader.State" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.PostalCode" class="form-label"></label>
+                    <input asp-for="OrderHeader.PostalCode" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Order Summary</h4>
+                <hr />
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Car</th>
+                            <th>Count</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderDetail)
+                        {
+                            <tr>
+                                <td>@item.Car.CarName</td>
+                                <td>@item.Count</td>
+                                <td>$@item.Price.ToString("N0")</td>
+                                <td>$@((item.Price * item.Count).ToString("N0"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="text-end">
+                    <h4>Total: $@Model.OrderHeader.OrderTotal.ToString("N0")</h4>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Order Status</h4>
+                <hr />
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.Carrier" class="form-label">Carrier</label>
+                    <input asp-for="OrderHeader.Carrier" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.TrackingNumber" class="form-label">Tracking Number</label>
+                    <input asp-for="OrderHeader.TrackingNumber" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.OrderStatus" class="form-label">Order Status</label>
+                    <select asp-for="OrderHeader.OrderStatus" class="form-select">
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Update Status
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

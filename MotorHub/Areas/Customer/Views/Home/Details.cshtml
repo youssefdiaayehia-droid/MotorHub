@@ -1,0 +1,38 @@
+﻿@model MotorHub_Models.ShoppingCart
+
+@{
+    ViewData["Title"] = "Car Details";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            @if (!string.IsNullOrEmpty(Model.Car.CarImage))
+            {
+                <img src="@Model.Car.CarImage" class="img-fluid rounded"
+                     style="max-height: 400px; object-fit: cover; width: 100%;"
+                     alt="@Model.Car.CarName" />
+            }
+        </div>
+
+        <div class="col-md-6">
+            <h2>@Model.Car.CarName</h2>
+            <hr />
+            <p><strong>Made In:</strong> @Model.Car.CarMadein</p>
+            <p><strong>Type:</strong> @Model.Car.CarType</p>
+            <p><strong>Price:</strong> $@Model.Car.CarPrice.ToString("N0")</p>
+
+            <form method="post" asp-action="Details">
+                <input type="hidden" asp-for="CarId" />
+
+                <div class="mb-3">
+                    <label asp-for="Count">Quantity</label>
+                    <input asp-for="Count" class="form-control" />
+                </div>
+
+                <input type="submit" value="Add to Cart" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>

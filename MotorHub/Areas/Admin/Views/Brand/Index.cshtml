@@ -1,0 +1,46 @@
+﻿@model IEnumerable<MotorHub_Models.Brand>
+
+@{
+    ViewData["Title"] = "Brands";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Brand List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Brand" asp-action="Upsert" class="btn btn-primary">
+                Create New Brand
+            </a>
+        </div>
+    </div>
+    <br />
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Brand Name</th>
+                <th>Brand Level</th>
+                <th>Brand Logo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>@obj.BrandName</td>
+                    <td>@obj.BrandLevel</td>
+                    <td>@obj.BrandLogo</td>
+                    <td>
+                        <a asp-controller="Brand" asp-action="Upsert" asp-route-id="@obj.Brandid"
+                           class="btn btn-primary mx-2">Edit</a>
+                        <a asp-controller="Brand" asp-action="Delete" asp-route-id="@obj.Brandid"
+                           class="btn btn-danger mx-2">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

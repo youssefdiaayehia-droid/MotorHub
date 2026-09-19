@@ -1,0 +1,33 @@
+﻿@model MotorHub_Models.Car
+
+@{
+    ViewData["Title"] = "Delete Car";
+}
+
+<form method="post" asp-action="Delete">
+    <input asp-for="Carid" hidden />
+
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Delete Car</h2>
+            <hr />
+        </div>
+
+        <div class="mb-3">
+            <h4>Are you sure you want to delete this car?</h4>
+            <p><strong>Name:</strong> @Model.CarName</p>
+            <p><strong>Price:</strong> $@Model.CarPrice</p>
+        </div>
+
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-danger form-control">Delete</button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Car" asp-action="Index" class="btn btn-secondary border form-control">
+                    Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+</form>

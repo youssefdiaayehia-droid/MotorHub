@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="MotorHub/MotorHub.csproj" />
+  <Project Path="MotorHub_DataAccess/MotorHub_DataAccess.csproj" />
+  <Project Path="MotorHub_Models/MotorHub_Models.csproj" />
+  <Project Path="MotorHub_Utility/MotorHub_Utility.csproj" />
+</Solution>

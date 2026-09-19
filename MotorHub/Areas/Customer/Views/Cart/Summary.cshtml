@@ -1,0 +1,103 @@
+﻿@model MotorHub_Models.VM.ShoppingCartVM
+
+@{
+    ViewData["Title"] = "Order Summary";
+}
+
+<form method="post">
+    <input asp-for="OrderHeader.Id" hidden />
+
+    <div class="container">
+        <h2 class="text-primary">Order Summary</h2>
+        <hr />
+
+        <div class="row">
+            <!-- بيانات الشحن -->
+            <div class="col-md-6">
+                <h4>Shipping Details</h4>
+                <hr />
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.Name" class="form-label"></label>
+                    <input asp-for="OrderHeader.Name" class="form-control" />
+                    <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.PhoneNumber" class="form-label"></label>
+                    <input asp-for="OrderHeader.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="OrderHeader.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.StreetAddress" class="form-label"></label>
+                    <input asp-for="OrderHeader.StreetAddress" class="form-control" />
+                    <span asp-validation-for="OrderHeader.StreetAddress" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.City" class="form-label"></label>
+                    <input asp-for="OrderHeader.City" class="form-control" />
+                    <span asp-validation-for="OrderHeader.City" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.State" class="form-label"></label>
+                    <input asp-for="OrderHeader.State" class="form-control" />
+                    <span asp-validation-for="OrderHeader.State" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OrderHeader.PostalCode" class="form-label"></label>
+                    <input asp-for="OrderHeader.PostalCode" class="form-control" />
+                    <span asp-validation-for="OrderHeader.PostalCode" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- ملخص الطلب -->
+            <div class="col-md-6">
+                <h4>Order Details</h4>
+                <hr />
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Car</th>
+                            <th>Count</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ShoppingCartList)
+                        {
+                            <tr>
+                                <td>@item.Car.CarName</td>
+                                <td>@item.Count</td>
+                                <td>$@item.Car.CarPrice.ToString("N0")</td>
+                                <td>$@((item.Car.CarPrice * item.Count).ToString("N0"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="text-end">
+                    <h4>Total: $@Model.OrderHeader.OrderTotal.ToString("N0")</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-4">
+            <div class="col-6">
+                <a asp-action="Index" class="btn btn-secondary">Back to Cart</a>
+            </div>
+            <div class="col-6 text-end">
+                <button type="submit" class="btn btn-primary">Place Order</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

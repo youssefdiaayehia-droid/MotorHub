@@ -1,0 +1,67 @@
+﻿@model IEnumerable<MotorHub_Models.Car>
+
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Car List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Car" asp-action="Upsert" class="btn btn-primary">
+                Create New Car
+            </a>
+        </div>
+    </div>
+    <br />
+
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Car Name</th>
+                <th>Made In</th>
+                <th>Price</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(obj.CarImage))
+                        {
+                            <img src="@obj.CarImage"
+                                 style="width: 60px; height: 60px; object-fit: cover;"
+                                 class="rounded" />
+                        }
+                    </td>
+                    <td>@obj.CarName</td>
+                    <td>@obj.CarMadein</td>
+                    <td>$@obj.CarPrice.ToString("N0")</td>
+                    <td>@obj.CarType</td>
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Car" asp-action="Upsert" asp-route-id="@obj.Carid"
+                               class="btn btn-primary mx-2">Edit</a>
+                            <a asp-controller="Car" asp-action="Delete" asp-route-id="@obj.Carid"
+                               class="btn btn-danger mx-2">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

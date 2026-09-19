@@ -1,0 +1,75 @@
+﻿@model MotorHub_Models.VM.CustomerHomeVm
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">Welcome to MotorHub</h1>
+        <p>Your one-stop shop for cars</p>
+    </div>
+
+    <hr />
+
+    <h3 class="mb-3">Browse by Brand</h3>
+    <div class="row mb-5">
+        @if (Model.BrandList != null && Model.BrandList.Any())
+        {
+            @foreach (var brand in Model.BrandList)
+            {
+                <div class="col-md-3 mb-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">@brand.Text</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-warning">No brands available yet.</div>
+            </div>
+        }
+    </div>
+
+    <hr />
+
+    <h3 class="mb-3">Available Cars</h3>
+    <div class="row">
+        @if (Model.CarList != null && Model.CarList.Any())
+        {
+            @foreach (var car in Model.CarList)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        @if (!string.IsNullOrEmpty(car.CarImage))
+                        {
+                            <img src="@car.CarImage" class="card-img-top"
+                                 style="height: 200px; object-fit: cover;"
+                                 alt="@car.CarName" />
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@car.CarName</h5>
+                            <p class="card-text">
+                                <strong>Made In:</strong> @car.CarMadein<br />
+                                <strong>Type:</strong> @car.CarType<br />
+                                <strong>Price:</strong> $@car.CarPrice.ToString("N0")
+                            </p>
+                            <a asp-action="Details" asp-route-Carid="@car.Carid"
+                               class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info">No cars available right now.</div>
+            </div>
+        }
+    </div>
+</div>

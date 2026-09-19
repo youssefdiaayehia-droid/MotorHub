@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MotorHub_Models.OrderHeader>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Order List</h2>
+        </div>
+    </div>
+    <br />
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Order Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>#@obj.Id</td>
+                    <td>@obj.Name</td>
+                    <td>@obj.OrderDate.ToString("MMM dd, yyyy")</td>
+                    <td>$@obj.OrderTotal.ToString("N0")</td>
+                    <td>@obj.OrderStatus</td>
+                    <td>@obj.PaymentStatus</td>
+                    <td>
+                        <a asp-controller="Order" asp-action="Details" asp-route-id="@obj.Id"
+                           class="btn btn-primary mx-2">
+                            Details
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
